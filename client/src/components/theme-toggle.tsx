@@ -1,19 +1,39 @@
-import { Moon, Sun } from 'lucide-react';
+import { Moon, Sun, Gamepad2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useTheme } from './theme-provider';
 
 export function ThemeToggle() {
   const { theme, setTheme } = useTheme();
 
+  const getNextTheme = () => {
+    if (theme === "light") return "dark";
+    if (theme === "dark") return "gaming";
+    return "light";
+  };
+
+  const getThemeIcon = () => {
+    switch (theme) {
+      case "light":
+        return <Sun className="h-[1.2rem] w-[1.2rem] transition-all duration-300" />;
+      case "dark":
+        return <Moon className="h-[1.2rem] w-[1.2rem] transition-all duration-300" />;
+      case "gaming":
+        return <Gamepad2 className="h-[1.2rem] w-[1.2rem] transition-all duration-300 text-primary" />;
+      default:
+        return <Sun className="h-[1.2rem] w-[1.2rem] transition-all duration-300" />;
+    }
+  };
+
   return (
     <Button
       variant="outline"
       size="icon"
-      onClick={() => setTheme(theme === "light" ? "dark" : "light")}
-      className="fixed top-4 right-4 z-50 bg-background/80 backdrop-blur-sm border-border hover:bg-accent/50 transition-all duration-300"
+      onClick={() => setTheme(getNextTheme())}
+      className={`fixed top-4 right-4 z-50 bg-background/80 backdrop-blur-sm border-border hover:bg-accent/50 transition-all duration-300 ${
+        theme === "gaming" ? "animate-pulse shadow-lg shadow-primary/50" : ""
+      }`}
     >
-      <Sun className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
-      <Moon className="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
+      {getThemeIcon()}
       <span className="sr-only">Toggle theme</span>
     </Button>
   );

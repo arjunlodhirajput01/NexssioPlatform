@@ -131,10 +131,10 @@ const Home = () => {
             className="space-y-8"
           >
             <motion.div variants={morphText}>
-              <h1 className="text-5xl md:text-7xl font-bold mb-6">
+              <h1 className="text-5xl md:text-7xl font-bold mb-6 animate-gaming-text">
                 Professional{" "}
                 <motion.span 
-                  className="gradient-text inline-block"
+                  className="gradient-text inline-block animate-gaming-pulse"
                   variants={glowPulse}
                   animate="animate"
                 >
@@ -206,7 +206,7 @@ const Home = () => {
               <motion.div
                 variants={staggerItem}
                 whileHover={{ scale: 1.05, rotateY: 5 }}
-                className="service-card glass-effect p-6 rounded-xl text-center group cursor-pointer"
+                className="service-card glass-effect p-6 rounded-xl text-center group cursor-pointer animate-gaming-glow"
               >
                 <motion.div 
                   className="w-16 h-16 bg-gradient-to-r from-primary to-secondary rounded-full flex items-center justify-center mx-auto mb-4"
@@ -225,7 +225,7 @@ const Home = () => {
               <motion.div
                 variants={staggerItem}
                 whileHover={{ scale: 1.05, rotateY: 5 }}
-                className="service-card glass-effect p-6 rounded-xl text-center group cursor-pointer"
+                className="service-card glass-effect p-6 rounded-xl text-center group cursor-pointer animate-gaming-glow"
               >
                 <motion.div 
                   className="w-16 h-16 bg-gradient-to-r from-secondary to-accent rounded-full flex items-center justify-center mx-auto mb-4"
@@ -245,7 +245,7 @@ const Home = () => {
               <motion.div
                 variants={staggerItem}
                 whileHover={{ scale: 1.05, rotateY: 5 }}
-                className="service-card glass-effect p-6 rounded-xl text-center group cursor-pointer"
+                className="service-card glass-effect p-6 rounded-xl text-center group cursor-pointer animate-gaming-glow"
               >
                 <motion.div 
                   className="w-16 h-16 bg-gradient-to-r from-accent to-success rounded-full flex items-center justify-center mx-auto mb-4"
