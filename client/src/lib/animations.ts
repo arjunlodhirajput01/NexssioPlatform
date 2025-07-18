@@ -76,9 +76,14 @@ export const slideUp: Variants = {
 };
 
 export const staggerContainer: Variants = {
+  initial: {
+    opacity: 0,
+  },
   animate: {
+    opacity: 1,
     transition: {
       staggerChildren: 0.1,
+      duration: 0.6,
     },
   },
 };
@@ -175,12 +180,12 @@ export const morphText: Variants = {
   initial: {
     opacity: 0,
     scale: 0.8,
-    rotateX: -90,
+    y: 50,
   },
   animate: {
     opacity: 1,
     scale: 1,
-    rotateX: 0,
+    y: 0,
     transition: {
       duration: 1.2,
       ease: [0.25, 0.1, 0.25, 1],
@@ -190,11 +195,7 @@ export const morphText: Variants = {
 
 export const glowPulse: Variants = {
   animate: {
-    boxShadow: [
-      "0 0 20px rgba(59, 130, 246, 0.5)",
-      "0 0 40px rgba(59, 130, 246, 0.8)",
-      "0 0 20px rgba(59, 130, 246, 0.5)",
-    ],
+    scale: [1, 1.05, 1],
     transition: {
       duration: 2,
       repeat: Infinity,

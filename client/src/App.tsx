@@ -5,6 +5,8 @@ import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { CartProvider } from "./components/cart-provider";
 import { ThemeProvider } from "./components/theme-provider";
+import { ThemeToggle } from "./components/theme-toggle";
+import WhatsAppPopup from "./components/whatsapp-popup";
 import NotFound from "@/pages/not-found";
 import Home from "@/pages/home";
 import AssignmentServices from "@/pages/assignment-services";
@@ -40,6 +42,8 @@ function App() {
           <TooltipProvider>
             <div className="min-h-screen bg-background text-foreground overflow-x-hidden">
               <ParticleBackground />
+              <ThemeToggle />
+              <WhatsAppPopup />
               <Toaster />
               <Router />
             </div>

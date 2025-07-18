@@ -1,0 +1,70 @@
+now do features - black and white theme for whole website, other do add whatsApp button chat options, in home page text gets removed after animation it should be there only, and do add one dashboard also in which, first person has to sign up, create their id in website, and other is login too, after login or creating page provide their dashboard which will connect with all three serivce Assignment Help, Creative Work, Art Shop and Cart Shoping Option like these
+Hello,
+
+MY ORDERS
+
+ACCOUNT SETTINGS
+Profile Information
+Manage Addresses
+
+PAYMENTS
+Gift Cards₹0
+Saved UPI
+Saved Cards
+
+MY STUFF
+My Coupons
+My Reviews & Ratings
+All Notifications
+My Wishlist
+Logout
+Frequently Visited:
+Track Order
+Help Center
+Personal InformationEdit
+
+Your Gender
+MaleFemale
+Email AddressEdit
+
+Mobile NumberEdit
+
+FAQs
+What happens when I update my email address (or mobile number)?
+Your login email id (or mobile number) changes, likewise. You'll receive all your account related communication on your updated email address (or mobile number).
+
+When will my Flipkart account be updated with the new email address (or mobile number)?
+It happens as soon as you confirm the verification code sent to your email (or mobile) and save the changes.
+
+What happens to my existing Flipkart account when I update my email address (or mobile number)?
+Updating your email address (or mobile number) doesn't invalidate your account. Your account remains fully functional. You'll continue seeing your Order history, saved information and personal details.
+
+Does my Seller account get affected when I update my email address?
+Flipkart has a 'single sign-on' policy. Any changes will reflect in your Seller account also.
+
+Your Orders
+Track, return, or buy things again
+
+Login & security
+Edit login, name, and mobile number
+
+Prime
+View benefits and payment settings
+
+Your Addresses
+Edit addresses for orders and gifts
+
+Your business account
+Sign up for free to save up to 28% with GST invoice and bulk discounts and purchase on credit.
+
+Payment options
+Edit or add payment methods
+
+Amazon Pay balance
+Add money to your balance
+
+Contact Us
+Contact our customer service via phone or chat
+
+Deactivate Account
+Delete Account

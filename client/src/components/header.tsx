@@ -54,15 +54,6 @@ const Header = () => {
           </nav>
 
           <div className="flex items-center space-x-4">
-            <Button
-              variant="ghost"
-              size="icon"
-              onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-              className="hidden md:flex"
-            >
-              {theme === "dark" ? "🌞" : "🌙"}
-            </Button>
-
             <Link href="/cart">
               <Button variant="ghost" size="icon" className="relative">
                 <ShoppingCart className="h-5 w-5" />
