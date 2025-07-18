@@ -71,40 +71,38 @@ export function ThemeSelector() {
               const isSelected = theme === themeOption.id;
               
               return (
-                <Card
+                <div
                   key={themeOption.id}
-                  className={`cursor-pointer transition-all duration-300 hover:shadow-md ${
+                  className={`cursor-pointer transition-all duration-300 hover:shadow-md rounded-lg border-2 p-4 ${
                     isSelected 
-                      ? 'ring-2 ring-primary shadow-lg' 
-                      : 'hover:shadow-md'
+                      ? 'border-primary bg-primary/10 shadow-lg' 
+                      : 'border-border hover:border-primary/50 hover:bg-accent/50'
                   }`}
                   onClick={() => handleThemeSelect(themeOption.id)}
                 >
-                  <CardContent className="p-4">
-                    <div className="flex items-center gap-3">
-                      <div className={`p-2 rounded-full ${
-                        isSelected 
-                          ? 'bg-primary text-primary-foreground' 
-                          : 'bg-muted'
-                      }`}>
-                        <Icon className="w-5 h-5" />
-                      </div>
-                      <div className="flex-1">
-                        <h3 className="font-semibold text-sm">{themeOption.name}</h3>
-                        <p className="text-xs text-muted-foreground">{themeOption.description}</p>
-                      </div>
-                      <div className="flex gap-1">
-                        {themeOption.colors.map((color, index) => (
-                          <div
-                            key={index}
-                            className="w-4 h-4 rounded-full border border-border"
-                            style={{ backgroundColor: color }}
-                          />
-                        ))}
-                      </div>
+                  <div className="flex items-center gap-3">
+                    <div className={`p-2 rounded-full ${
+                      isSelected 
+                        ? 'bg-primary text-primary-foreground' 
+                        : 'bg-muted'
+                    }`}>
+                      <Icon className="w-5 h-5" />
                     </div>
-                  </CardContent>
-                </Card>
+                    <div className="flex-1">
+                      <h3 className="font-semibold text-sm">{themeOption.name}</h3>
+                      <p className="text-xs text-muted-foreground">{themeOption.description}</p>
+                    </div>
+                    <div className="flex gap-1">
+                      {themeOption.colors.map((color, index) => (
+                        <div
+                          key={index}
+                          className="w-4 h-4 rounded-full border border-border"
+                          style={{ backgroundColor: color }}
+                        />
+                      ))}
+                    </div>
+                  </div>
+                </div>
               );
             })}
           </div>
