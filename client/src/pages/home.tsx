@@ -1,12 +1,23 @@
 import { useEffect, useState } from "react";
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform, useInView } from "framer-motion";
 import { Link } from "wouter";
 import { useQuery } from "@tanstack/react-query";
-import { GraduationCap, Video, Palette, ArrowRight, CheckCircle } from "lucide-react";
+import { GraduationCap, Video, Palette, ArrowRight, CheckCircle, Sparkles, Zap, Trophy } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import Header from "@/components/header";
 import Footer from "@/components/footer";
+import { 
+  fadeInUp, 
+  staggerContainer, 
+  staggerItem, 
+  morphText, 
+  glowPulse, 
+  magneticHover, 
+  parallaxFloat,
+  liquidMorph,
+  particleMove 
+} from "@/lib/animations";
 import type { Service, PortfolioItem } from "@shared/schema";
 
 const Home = () => {
@@ -90,98 +101,232 @@ const Home = () => {
       <Header />
 
       {/* Hero Section */}
-      <section className="min-h-screen flex items-center justify-center pt-20 px-6">
-        <div className="container mx-auto text-center">
+      <section className="min-h-screen flex items-center justify-center pt-20 px-6 relative overflow-hidden">
+        {/* Floating particles */}
+        <div className="absolute inset-0 overflow-hidden pointer-events-none">
           <motion.div
-            initial={{ opacity: 0, y: 50 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            className="animate-slide-up"
+            variants={particleMove}
+            animate="animate"
+            className="absolute top-20 left-10 w-4 h-4 bg-primary/30 rounded-full blur-sm"
+          />
+          <motion.div
+            variants={particleMove}
+            animate="animate"
+            style={{ animationDelay: '2s' }}
+            className="absolute top-40 right-20 w-6 h-6 bg-secondary/30 rounded-full blur-sm"
+          />
+          <motion.div
+            variants={particleMove}
+            animate="animate"
+            style={{ animationDelay: '4s' }}
+            className="absolute bottom-40 left-1/4 w-3 h-3 bg-accent/30 rounded-full blur-sm"
+          />
+        </div>
+
+        <div className="container mx-auto text-center relative z-10">
+          <motion.div
+            variants={staggerContainer}
+            initial="initial"
+            animate="animate"
+            className="space-y-8"
           >
-            <h1 className="text-5xl md:text-7xl font-bold mb-6">
-              Professional <span className="gradient-text">Creative</span>
-              <br />
-              Services Platform
-            </h1>
-            <p className="text-xl md:text-2xl mb-8 text-muted-foreground max-w-3xl mx-auto">
+            <motion.div variants={morphText}>
+              <h1 className="text-5xl md:text-7xl font-bold mb-6">
+                Professional{" "}
+                <motion.span 
+                  className="gradient-text inline-block"
+                  variants={glowPulse}
+                  animate="animate"
+                >
+                  Creative
+                </motion.span>
+                <br />
+                <motion.span
+                  variants={parallaxFloat}
+                  animate="animate"
+                  className="inline-block"
+                >
+                  Services Platform
+                </motion.span>
+              </h1>
+            </motion.div>
+            
+            <motion.p 
+              variants={staggerItem}
+              className="text-xl md:text-2xl mb-8 text-muted-foreground max-w-3xl mx-auto"
+            >
               Transform your ideas into reality with our comprehensive suite of assignment services,
               creative productions, and artistic masterpieces.
-            </p>
+            </motion.p>
 
-            <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
-              <Link href="/portfolio">
-                <Button
-                  size="lg"
-                  className="bg-gradient-to-r from-primary to-secondary hover:shadow-2xl transition-all transform hover:scale-105"
+            <motion.div 
+              variants={staggerItem}
+              className="flex flex-col sm:flex-row gap-4 justify-center mb-12"
+            >
+              <Link href="/assignment-services">
+                <motion.div
+                  variants={magneticHover}
+                  whileHover="hover"
+                  whileTap={{ scale: 0.95 }}
                 >
-                  Explore Services
-                </Button>
+                  <Button
+                    size="lg"
+                    className="bg-gradient-to-r from-primary to-secondary hover:shadow-2xl transition-all"
+                  >
+                    <Sparkles className="mr-2 h-5 w-5" />
+                    Explore Services
+                  </Button>
+                </motion.div>
               </Link>
               <Link href="/portfolio">
-                <Button
-                  size="lg"
-                  variant="outline"
-                  className="glass-effect hover:bg-white/20 transition-all"
+                <motion.div
+                  variants={magneticHover}
+                  whileHover="hover"
+                  whileTap={{ scale: 0.95 }}
                 >
-                  View Portfolio
-                </Button>
+                  <Button
+                    size="lg"
+                    variant="outline"
+                    className="glass-effect hover:bg-white/20 transition-all"
+                  >
+                    <Trophy className="mr-2 h-5 w-5" />
+                    View Portfolio
+                  </Button>
+                </motion.div>
               </Link>
-            </div>
+            </motion.div>
 
             {/* Service Categories Preview */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-16">
+            <motion.div 
+              variants={staggerContainer}
+              initial="initial"
+              animate="animate"
+              className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-16"
+            >
               <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.2 }}
-                className="service-card glass-effect p-6 rounded-xl text-center"
+                variants={staggerItem}
+                whileHover={{ scale: 1.05, rotateY: 5 }}
+                className="service-card glass-effect p-6 rounded-xl text-center group cursor-pointer"
               >
-                <div className="w-16 h-16 bg-gradient-to-r from-primary to-secondary rounded-full flex items-center justify-center mx-auto mb-4">
-                  <GraduationCap className="text-2xl" />
-                </div>
+                <motion.div 
+                  className="w-16 h-16 bg-gradient-to-r from-primary to-secondary rounded-full flex items-center justify-center mx-auto mb-4"
+                  variants={liquidMorph}
+                  animate="animate"
+                >
+                  <GraduationCap className="text-2xl group-hover:scale-110 transition-transform" />
+                </motion.div>
                 <h3 className="text-xl font-semibold mb-2">Assignment Services</h3>
                 <p className="text-muted-foreground">Academic and professional writing solutions</p>
+                <motion.div 
+                  className="w-0 h-0.5 bg-gradient-to-r from-primary to-secondary mx-auto mt-4 group-hover:w-full transition-all duration-300"
+                />
               </motion.div>
 
               <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.4 }}
-                className="service-card glass-effect p-6 rounded-xl text-center"
+                variants={staggerItem}
+                whileHover={{ scale: 1.05, rotateY: 5 }}
+                className="service-card glass-effect p-6 rounded-xl text-center group cursor-pointer"
               >
-                <div className="w-16 h-16 bg-gradient-to-r from-secondary to-accent rounded-full flex items-center justify-center mx-auto mb-4">
-                  <Video className="text-2xl" />
-                </div>
+                <motion.div 
+                  className="w-16 h-16 bg-gradient-to-r from-secondary to-accent rounded-full flex items-center justify-center mx-auto mb-4"
+                  variants={liquidMorph}
+                  animate="animate"
+                  style={{ animationDelay: '1s' }}
+                >
+                  <Video className="text-2xl group-hover:scale-110 transition-transform" />
+                </motion.div>
                 <h3 className="text-xl font-semibold mb-2">Creative Services</h3>
                 <p className="text-muted-foreground">Video production, animations, and brochures</p>
+                <motion.div 
+                  className="w-0 h-0.5 bg-gradient-to-r from-secondary to-accent mx-auto mt-4 group-hover:w-full transition-all duration-300"
+                />
               </motion.div>
 
               <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.6 }}
-                className="service-card glass-effect p-6 rounded-xl text-center"
+                variants={staggerItem}
+                whileHover={{ scale: 1.05, rotateY: 5 }}
+                className="service-card glass-effect p-6 rounded-xl text-center group cursor-pointer"
               >
-                <div className="w-16 h-16 bg-gradient-to-r from-accent to-success rounded-full flex items-center justify-center mx-auto mb-4">
-                  <Palette className="text-2xl" />
-                </div>
+                <motion.div 
+                  className="w-16 h-16 bg-gradient-to-r from-accent to-success rounded-full flex items-center justify-center mx-auto mb-4"
+                  variants={liquidMorph}
+                  animate="animate"
+                  style={{ animationDelay: '2s' }}
+                >
+                  <Palette className="text-2xl group-hover:scale-110 transition-transform" />
+                </motion.div>
                 <h3 className="text-xl font-semibold mb-2">Art Shop</h3>
                 <p className="text-muted-foreground">Paintings, portraits, crafts, and more</p>
+                <motion.div 
+                  className="w-0 h-0.5 bg-gradient-to-r from-accent to-success mx-auto mt-4 group-hover:w-full transition-all duration-300"
+                />
               </motion.div>
-            </div>
+            </motion.div>
           </motion.div>
+        </div>
+      </section>
+
+      {/* Stats Section */}
+      <section id="stats" className="py-20 px-6 bg-gradient-to-b from-background to-muted/20">
+        <div className="container mx-auto">
+          <motion.div
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+            className="text-center mb-16"
+          >
+            <h2 className="text-4xl md:text-5xl font-bold mb-6 gradient-text">Our Impact</h2>
+            <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+              Delivering excellence with measurable results
+            </p>
+          </motion.div>
+
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+            {[
+              { value: stats.projects, label: "Projects", suffix: "+" },
+              { value: stats.clients, label: "Happy Clients", suffix: "+" },
+              { value: stats.artworks, label: "Artworks", suffix: "+" },
+              { value: stats.satisfaction, label: "Satisfaction", suffix: "%" },
+            ].map((stat, index) => (
+              <motion.div
+                key={stat.label}
+                initial={{ opacity: 0, scale: 0.5 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+                viewport={{ once: true }}
+                whileHover={{ scale: 1.05 }}
+                className="text-center p-6 rounded-xl glass-effect group"
+              >
+                <motion.div
+                  className="text-4xl md:text-5xl font-bold gradient-text mb-2"
+                  variants={glowPulse}
+                  animate="animate"
+                >
+                  {stat.value}{stat.suffix}
+                </motion.div>
+                <p className="text-muted-foreground">{stat.label}</p>
+              </motion.div>
+            ))}
+          </div>
         </div>
       </section>
 
       {/* Services Section */}
       <section className="py-20 px-6">
         <div className="container mx-auto">
-          <div className="text-center mb-16">
+          <motion.div
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+            className="text-center mb-16"
+          >
             <h2 className="text-4xl md:text-5xl font-bold mb-6 gradient-text">Our Services</h2>
             <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
               Comprehensive solutions for all your creative and professional needs
             </p>
-          </div>
+          </motion.div>
 
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
             {/* Assignment Services */}
@@ -302,86 +447,121 @@ const Home = () => {
       </section>
 
       {/* Featured Portfolio Section */}
-      <section className="py-20 px-6 bg-muted/20">
-        <div className="container mx-auto">
-          <div className="text-center mb-16">
+      <section className="py-20 px-6 bg-muted/20 relative overflow-hidden">
+        {/* Animated background shapes */}
+        <div className="absolute inset-0 pointer-events-none">
+          <motion.div
+            animate={{
+              scale: [1, 1.2, 1],
+              rotate: [0, 180, 360],
+              opacity: [0.1, 0.3, 0.1],
+            }}
+            transition={{
+              duration: 20,
+              repeat: Infinity,
+              ease: "linear",
+            }}
+            className="absolute top-10 left-10 w-64 h-64 bg-gradient-to-r from-primary/20 to-secondary/20 rounded-full blur-3xl"
+          />
+          <motion.div
+            animate={{
+              scale: [1.2, 1, 1.2],
+              rotate: [360, 180, 0],
+              opacity: [0.1, 0.3, 0.1],
+            }}
+            transition={{
+              duration: 25,
+              repeat: Infinity,
+              ease: "linear",
+            }}
+            className="absolute bottom-10 right-10 w-80 h-80 bg-gradient-to-r from-accent/20 to-success/20 rounded-full blur-3xl"
+          />
+        </div>
+
+        <div className="container mx-auto relative z-10">
+          <motion.div
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+            className="text-center mb-16"
+          >
             <h2 className="text-4xl md:text-5xl font-bold mb-6 gradient-text">Featured Portfolio</h2>
             <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
               Showcase of our finest creative work and professional projects
             </p>
-          </div>
+          </motion.div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {portfolioItems.map((item, index) => (
               <motion.div
                 key={item.id}
                 initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
+                whileInView={{ opacity: 1, y: 0 }}
                 transition={{ delay: index * 0.1 }}
-                className="portfolio-item glass-effect rounded-2xl overflow-hidden"
+                viewport={{ once: true }}
+                whileHover={{ 
+                  scale: 1.05,
+                  rotateY: 5,
+                  z: 50
+                }}
+                className="portfolio-item glass-effect rounded-2xl overflow-hidden group cursor-pointer"
               >
-                <img
-                  src={item.imageUrl}
-                  alt={item.title}
-                  className="w-full h-48 object-cover transition-transform duration-300"
-                />
+                <div className="relative overflow-hidden">
+                  <img
+                    src={item.imageUrl}
+                    alt={item.title}
+                    className="w-full h-48 object-cover transition-transform duration-500 group-hover:scale-110"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                  <motion.div
+                    className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                    initial={{ scale: 0 }}
+                    whileHover={{ scale: 1 }}
+                  >
+                    <Zap className="text-white h-8 w-8" />
+                  </motion.div>
+                </div>
                 <div className="p-6">
-                  <h3 className="text-xl font-semibold mb-2">{item.title}</h3>
+                  <h3 className="text-xl font-semibold mb-2 group-hover:text-primary transition-colors">{item.title}</h3>
                   <p className="text-muted-foreground mb-4">{item.description}</p>
                   <div className="flex items-center justify-between">
                     <span className="text-sm text-muted-foreground capitalize">{item.category}</span>
-                    <ArrowRight className="text-primary h-5 w-5" />
+                    <ArrowRight className="text-primary h-5 w-5 group-hover:translate-x-1 transition-transform" />
                   </div>
                 </div>
               </motion.div>
             ))}
           </div>
 
-          <div className="text-center mt-12">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+            className="text-center mt-12"
+          >
             <Link href="/portfolio">
-              <Button
-                size="lg"
-                variant="outline"
-                className="glass-effect hover:bg-white/20 transition-all"
+              <motion.div
+                variants={magneticHover}
+                whileHover="hover"
+                whileTap={{ scale: 0.95 }}
               >
-                View Full Portfolio
-              </Button>
+                <Button
+                  size="lg"
+                  variant="outline"
+                  className="glass-effect hover:bg-white/20 transition-all"
+                >
+                  View Full Portfolio
+                  <ArrowRight className="ml-2 h-5 w-5" />
+                </Button>
+              </motion.div>
             </Link>
-          </div>
+          </motion.div>
         </div>
       </section>
 
-      {/* Stats Section */}
-      <section id="stats" className="py-20 px-6">
-        <div className="container mx-auto">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-            <div className="text-center">
-              <div className="text-4xl md:text-5xl font-bold stats-counter gradient-text mb-2">
-                {stats.projects}
-              </div>
-              <p className="text-muted-foreground">Projects Completed</p>
-            </div>
-            <div className="text-center">
-              <div className="text-4xl md:text-5xl font-bold stats-counter gradient-text mb-2">
-                {stats.clients}
-              </div>
-              <p className="text-muted-foreground">Happy Clients</p>
-            </div>
-            <div className="text-center">
-              <div className="text-4xl md:text-5xl font-bold stats-counter gradient-text mb-2">
-                {stats.artworks}
-              </div>
-              <p className="text-muted-foreground">Artworks Created</p>
-            </div>
-            <div className="text-center">
-              <div className="text-4xl md:text-5xl font-bold stats-counter gradient-text mb-2">
-                {stats.satisfaction}%
-              </div>
-              <p className="text-muted-foreground">Satisfaction Rate</p>
-            </div>
-          </div>
-        </div>
-      </section>
+
 
       {/* CTA Section */}
       <section className="py-20 px-6 bg-gradient-to-r from-primary to-secondary">

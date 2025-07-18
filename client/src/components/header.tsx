@@ -42,13 +42,13 @@ const Header = () => {
           <nav className="hidden md:flex items-center space-x-8">
             {navItems.map((item) => (
               <Link key={item.href} href={item.href}>
-                <a
-                  className={`hover:text-primary transition-colors ${
+                <span
+                  className={`hover:text-primary transition-colors cursor-pointer ${
                     location === item.href ? "text-primary" : ""
                   }`}
                 >
                   {item.label}
-                </a>
+                </span>
               </Link>
             ))}
           </nav>

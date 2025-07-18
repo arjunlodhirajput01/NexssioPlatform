@@ -37,30 +37,30 @@ const Footer = () => {
             <ul className="space-y-2">
               <li>
                 <Link href="/assignment-services">
-                  <a className="text-muted-foreground hover:text-primary transition-colors">
+                  <span className="text-muted-foreground hover:text-primary transition-colors cursor-pointer">
                     Assignment Writing
-                  </a>
+                  </span>
                 </Link>
               </li>
               <li>
                 <Link href="/creative-services">
-                  <a className="text-muted-foreground hover:text-primary transition-colors">
+                  <span className="text-muted-foreground hover:text-primary transition-colors cursor-pointer">
                     Video Production
-                  </a>
+                  </span>
                 </Link>
               </li>
               <li>
                 <Link href="/art-shop">
-                  <a className="text-muted-foreground hover:text-primary transition-colors">
+                  <span className="text-muted-foreground hover:text-primary transition-colors cursor-pointer">
                     Custom Artwork
-                  </a>
+                  </span>
                 </Link>
               </li>
               <li>
                 <Link href="/portfolio">
-                  <a className="text-muted-foreground hover:text-primary transition-colors">
+                  <span className="text-muted-foreground hover:text-primary transition-colors cursor-pointer">
                     Portfolio Design
-                  </a>
+                  </span>
                 </Link>
               </li>
             </ul>
@@ -71,16 +71,16 @@ const Footer = () => {
             <ul className="space-y-2">
               <li>
                 <Link href="/contact">
-                  <a className="text-muted-foreground hover:text-primary transition-colors">
+                  <span className="text-muted-foreground hover:text-primary transition-colors cursor-pointer">
                     Help Center
-                  </a>
+                  </span>
                 </Link>
               </li>
               <li>
                 <Link href="/contact">
-                  <a className="text-muted-foreground hover:text-primary transition-colors">
+                  <span className="text-muted-foreground hover:text-primary transition-colors cursor-pointer">
                     Contact Us
-                  </a>
+                  </span>
                 </Link>
               </li>
               <li>
