@@ -5,6 +5,8 @@ import {
   type Order, type InsertOrder, type ContactSubmission, type InsertContactSubmission,
   type FeedbackSubmission, type InsertFeedbackSubmission
 } from "@shared/schema";
+import { db } from "./db";
+import { eq } from "drizzle-orm";
 
 export interface IStorage {
   // User methods
@@ -365,4 +367,152 @@ export class MemStorage implements IStorage {
   }
 }
 
-export const storage = new MemStorage();
+export class DatabaseStorage implements IStorage {
+  // User methods
+  async getUser(id: number): Promise<User | undefined> {
+    const [user] = await db.select().from(users).where(eq(users.id, id));
+    return user || undefined;
+  }
+
+  async getUserByUsername(username: string): Promise<User | undefined> {
+    const [user] = await db.select().from(users).where(eq(users.username, username));
+    return user || undefined;
+  }
+
+  async createUser(insertUser: InsertUser): Promise<User> {
+    const [user] = await db
+      .insert(users)
+      .values(insertUser)
+      .returning();
+    return user;
+  }
+
+  // Service methods
+  async getServices(): Promise<Service[]> {
+    return await db.select().from(services);
+  }
+
+  async getServicesByCategory(category: string): Promise<Service[]> {
+    return await db.select().from(services).where(eq(services.category, category));
+  }
+
+  async getService(id: number): Promise<Service | undefined> {
+    const [service] = await db.select().from(services).where(eq(services.id, id));
+    return service || undefined;
+  }
+
+  async createService(insertService: InsertService): Promise<Service> {
+    const [service] = await db
+      .insert(services)
+      .values(insertService)
+      .returning();
+    return service;
+  }
+
+  // Product methods
+  async getProducts(): Promise<Product[]> {
+    return await db.select().from(products);
+  }
+
+  async getProductsByCategory(category: string): Promise<Product[]> {
+    return await db.select().from(products).where(eq(products.category, category));
+  }
+
+  async getProduct(id: number): Promise<Product | undefined> {
+    const [product] = await db.select().from(products).where(eq(products.id, id));
+    return product || undefined;
+  }
+
+  async createProduct(insertProduct: InsertProduct): Promise<Product> {
+    const [product] = await db
+      .insert(products)
+      .values(insertProduct)
+      .returning();
+    return product;
+  }
+
+  // Portfolio methods
+  async getPortfolioItems(): Promise<PortfolioItem[]> {
+    return await db.select().from(portfolioItems);
+  }
+
+  async getFeaturedPortfolioItems(): Promise<PortfolioItem[]> {
+    return await db.select().from(portfolioItems).where(eq(portfolioItems.isFeatured, true));
+  }
+
+  async getPortfolioItemsByCategory(category: string): Promise<PortfolioItem[]> {
+    return await db.select().from(portfolioItems).where(eq(portfolioItems.category, category));
+  }
+
+  async createPortfolioItem(insertItem: InsertPortfolioItem): Promise<PortfolioItem> {
+    const [item] = await db
+      .insert(portfolioItems)
+      .values(insertItem)
+      .returning();
+    return item;
+  }
+
+  // Cart methods
+  async getCartItems(sessionId: string): Promise<CartItem[]> {
+    return await db.select().from(cartItems).where(eq(cartItems.sessionId, sessionId));
+  }
+
+  async addToCart(insertItem: InsertCartItem): Promise<CartItem> {
+    const [item] = await db
+      .insert(cartItems)
+      .values(insertItem)
+      .returning();
+    return item;
+  }
+
+  async updateCartItem(id: number, quantity: number): Promise<CartItem | undefined> {
+    const [item] = await db
+      .update(cartItems)
+      .set({ quantity })
+      .where(eq(cartItems.id, id))
+      .returning();
+    return item || undefined;
+  }
+
+  async removeFromCart(id: number): Promise<void> {
+    await db.delete(cartItems).where(eq(cartItems.id, id));
+  }
+
+  async clearCart(sessionId: string): Promise<void> {
+    await db.delete(cartItems).where(eq(cartItems.sessionId, sessionId));
+  }
+
+  // Order methods
+  async createOrder(insertOrder: InsertOrder): Promise<Order> {
+    const [order] = await db
+      .insert(orders)
+      .values(insertOrder)
+      .returning();
+    return order;
+  }
+
+  async getOrder(id: number): Promise<Order | undefined> {
+    const [order] = await db.select().from(orders).where(eq(orders.id, id));
+    return order || undefined;
+  }
+
+  // Contact methods
+  async createContactSubmission(insertSubmission: InsertContactSubmission): Promise<ContactSubmission> {
+    const [submission] = await db
+      .insert(contactSubmissions)
+      .values(insertSubmission)
+      .returning();
+    return submission;
+  }
+
+  // Feedback methods
+  async createFeedbackSubmission(insertSubmission: InsertFeedbackSubmission): Promise<FeedbackSubmission> {
+    const [submission] = await db
+      .insert(feedbackSubmissions)
+      .values(insertSubmission)
+      .returning();
+    return submission;
+  }
+}
+
+export const storage = new DatabaseStorage();

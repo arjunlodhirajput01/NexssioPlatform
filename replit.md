@@ -22,17 +22,19 @@ Preferred communication style: Simple, everyday language.
 ### Backend Architecture
 - **Runtime**: Node.js with Express.js
 - **Language**: TypeScript with ESM modules
-- **Database**: PostgreSQL with Drizzle ORM
+- **Database**: PostgreSQL with Drizzle ORM (fully integrated)
 - **Database Provider**: Neon serverless PostgreSQL
 - **Session Management**: PostgreSQL-based session storage
 - **API Design**: RESTful API with proper error handling
+- **Data Persistence**: All data now stored in PostgreSQL database
 
 ### Database Schema
+- **PostgreSQL Database**: Migrated from in-memory storage to persistent PostgreSQL database
 - **Users**: Authentication and user management
 - **Services**: Assignment and creative services catalog
 - **Products**: Art shop inventory management
 - **Portfolio**: Showcase of work and projects
-- **Cart**: Session-based shopping cart
+- **Cart**: Session-based shopping cart with persistent storage
 - **Orders**: Order processing and management
 - **Contact/Feedback**: Customer communication
 
