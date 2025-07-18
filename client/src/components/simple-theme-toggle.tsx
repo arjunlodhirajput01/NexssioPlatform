@@ -58,12 +58,12 @@ export function SimpleThemeToggle() {
   };
 
   return (
-    <div className="fixed top-4 right-4 z-50">
+    <div className="fixed bottom-6 right-6 z-[9999]">
       <Dialog open={isOpen} onOpenChange={setIsOpen}>
         <DialogTrigger asChild>
           <Button
             size="lg"
-            className={`rounded-full w-14 h-14 shadow-lg transition-all duration-300 hover:scale-110 ${
+            className={`rounded-full w-16 h-16 shadow-xl transition-all duration-300 hover:scale-110 ${
               theme === "gaming" 
                 ? "bg-green-500 hover:bg-green-600 animate-pulse shadow-green-500/50" 
                 : theme === "dark"
