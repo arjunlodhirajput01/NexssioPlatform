@@ -404,18 +404,26 @@ export class DatabaseStorage implements IStorage {
   async createService(insertService: InsertService): Promise<Service> {
     const [service] = await db
       .insert(services)
-      .values(insertService)
+      .values({
+        ...insertService,
+        features: insertService.features ? JSON.stringify(insertService.features) : null
+      })
       .returning();
-    return service;
+    return {
+      ...service,
+      features: service.features ? JSON.parse(service.features) : null
+    };
   }
 
   // Product methods
   async getProducts(): Promise<Product[]> {
-    return await db.select().from(products);
+    const result = await db.select().from(products);
+    return result;
   }
 
   async getProductsByCategory(category: string): Promise<Product[]> {
-    return await db.select().from(products).where(eq(products.category, category));
+    const result = await db.select().from(products).where(eq(products.category, category));
+    return result;
   }
 
   async getProduct(id: number): Promise<Product | undefined> {
@@ -433,23 +441,41 @@ export class DatabaseStorage implements IStorage {
 
   // Portfolio methods
   async getPortfolioItems(): Promise<PortfolioItem[]> {
-    return await db.select().from(portfolioItems);
+    const result = await db.select().from(portfolioItems);
+    return result.map(item => ({
+      ...item,
+      tags: item.tags ? JSON.parse(item.tags) : null
+    }));
   }
 
   async getFeaturedPortfolioItems(): Promise<PortfolioItem[]> {
-    return await db.select().from(portfolioItems).where(eq(portfolioItems.isFeatured, true));
+    const result = await db.select().from(portfolioItems).where(eq(portfolioItems.isFeatured, true));
+    return result.map(item => ({
+      ...item,
+      tags: item.tags ? JSON.parse(item.tags) : null
+    }));
   }
 
   async getPortfolioItemsByCategory(category: string): Promise<PortfolioItem[]> {
-    return await db.select().from(portfolioItems).where(eq(portfolioItems.category, category));
+    const result = await db.select().from(portfolioItems).where(eq(portfolioItems.category, category));
+    return result.map(item => ({
+      ...item,
+      tags: item.tags ? JSON.parse(item.tags) : null
+    }));
   }
 
   async createPortfolioItem(insertItem: InsertPortfolioItem): Promise<PortfolioItem> {
     const [item] = await db
       .insert(portfolioItems)
-      .values(insertItem)
+      .values({
+        ...insertItem,
+        tags: insertItem.tags ? JSON.stringify(insertItem.tags) : null
+      })
       .returning();
-    return item;
+    return {
+      ...item,
+      tags: item.tags ? JSON.parse(item.tags) : null
+    };
   }
 
   // Cart methods

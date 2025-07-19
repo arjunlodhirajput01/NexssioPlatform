@@ -1,83 +1,83 @@
-import { pgTable, text, serial, integer, boolean, decimal, timestamp } from "drizzle-orm/pg-core";
+import { sqliteTable, text, integer, real } from "drizzle-orm/sqlite-core";
 import { createInsertSchema } from "drizzle-zod";
 import { z } from "zod";
 
-export const users = pgTable("users", {
-  id: serial("id").primaryKey(),
+export const users = sqliteTable("users", {
+  id: integer("id").primaryKey({ autoIncrement: true }),
   username: text("username").notNull().unique(),
   password: text("password").notNull(),
   email: text("email").notNull().unique(),
   name: text("name").notNull(),
-  createdAt: timestamp("created_at").defaultNow(),
+  createdAt: text("created_at").default("CURRENT_TIMESTAMP"),
 });
 
-export const services = pgTable("services", {
-  id: serial("id").primaryKey(),
+export const services = sqliteTable("services", {
+  id: integer("id").primaryKey({ autoIncrement: true }),
   title: text("title").notNull(),
   description: text("description").notNull(),
   category: text("category").notNull(), // 'assignment', 'creative', 'art-shop'
-  price: decimal("price", { precision: 10, scale: 2 }),
-  features: text("features").array(),
+  price: text("price"),
+  features: text("features"), // JSON string
   imageUrl: text("image_url"),
-  isActive: boolean("is_active").default(true),
+  isActive: integer("is_active", { mode: 'boolean' }).default(true),
 });
 
-export const products = pgTable("products", {
-  id: serial("id").primaryKey(),
+export const products = sqliteTable("products", {
+  id: integer("id").primaryKey({ autoIncrement: true }),
   name: text("name").notNull(),
   description: text("description").notNull(),
-  price: decimal("price", { precision: 10, scale: 2 }).notNull(),
+  price: text("price").notNull(),
   category: text("category").notNull(), // 'paintings', 'portraits', 'crafts', etc.
   imageUrl: text("image_url"),
-  inStock: boolean("in_stock").default(true),
+  inStock: integer("in_stock", { mode: 'boolean' }).default(true),
   stockQuantity: integer("stock_quantity").default(0),
 });
 
-export const portfolioItems = pgTable("portfolio_items", {
-  id: serial("id").primaryKey(),
+export const portfolioItems = sqliteTable("portfolio_items", {
+  id: integer("id").primaryKey({ autoIncrement: true }),
   title: text("title").notNull(),
   description: text("description"),
   category: text("category").notNull(), // 'creative', 'art', 'design', 'video'
   imageUrl: text("image_url").notNull(),
   projectUrl: text("project_url"),
-  tags: text("tags").array(),
-  isFeatured: boolean("is_featured").default(false),
+  tags: text("tags"), // JSON string
+  isFeatured: integer("is_featured", { mode: 'boolean' }).default(false),
 });
 
-export const cartItems = pgTable("cart_items", {
-  id: serial("id").primaryKey(),
+export const cartItems = sqliteTable("cart_items", {
+  id: integer("id").primaryKey({ autoIncrement: true }),
   sessionId: text("session_id").notNull(),
   productId: integer("product_id").notNull(),
   quantity: integer("quantity").notNull().default(1),
-  createdAt: timestamp("created_at").defaultNow(),
+  createdAt: text("created_at").default("CURRENT_TIMESTAMP"),
 });
 
-export const orders = pgTable("orders", {
-  id: serial("id").primaryKey(),
+export const orders = sqliteTable("orders", {
+  id: integer("id").primaryKey({ autoIncrement: true }),
   customerName: text("customer_name").notNull(),
   customerEmail: text("customer_email").notNull(),
   customerPhone: text("customer_phone"),
-  total: decimal("total", { precision: 10, scale: 2 }).notNull(),
+  total: text("total").notNull(),
   status: text("status").notNull().default('pending'), // 'pending', 'completed', 'cancelled'
-  createdAt: timestamp("created_at").defaultNow(),
+  createdAt: text("created_at").default("CURRENT_TIMESTAMP"),
 });
 
-export const contactSubmissions = pgTable("contact_submissions", {
-  id: serial("id").primaryKey(),
+export const contactSubmissions = sqliteTable("contact_submissions", {
+  id: integer("id").primaryKey({ autoIncrement: true }),
   name: text("name").notNull(),
   email: text("email").notNull(),
   subject: text("subject").notNull(),
   message: text("message").notNull(),
-  createdAt: timestamp("created_at").defaultNow(),
+  createdAt: text("created_at").default("CURRENT_TIMESTAMP"),
 });
 
-export const feedbackSubmissions = pgTable("feedback_submissions", {
-  id: serial("id").primaryKey(),
+export const feedbackSubmissions = sqliteTable("feedback_submissions", {
+  id: integer("id").primaryKey({ autoIncrement: true }),
   name: text("name").notNull(),
   email: text("email").notNull(),
   rating: integer("rating").notNull(),
   feedback: text("feedback").notNull(),
-  createdAt: timestamp("created_at").defaultNow(),
+  createdAt: text("created_at").default("CURRENT_TIMESTAMP"),
 });
 
 // Insert schemas
